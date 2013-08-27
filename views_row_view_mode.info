@@ -1,0 +1,6 @@
+name = Views Row View Mode
+description = "Provides a views row formatter that combines the views row classes with the view mode wrapper."
+package = Views
+core = 7.x
+
+dependencies[] = views
