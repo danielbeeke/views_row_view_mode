@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Implements hook_views_api().
+ */
 function views_row_view_mode_views_api() {
   return array(
     'api' => 3,
