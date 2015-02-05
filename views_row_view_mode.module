@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Main module file.
+ */
 
 /**
  * Implements hook_views_api().
@@ -14,12 +18,14 @@ function views_row_view_mode_views_api() {
  * Implements hook_preprocess_HOOK().
  */
 function views_row_view_mode_preprocess_node(&$variables) {
-  if (isset($variables['view']->style_plugin) && get_class($variables['view']->style_plugin) == 'views_plugin_style_views_row_view_mode') {
+  if (isset($variables['view']->style_plugin) && get_class($variables['view']->style_plugin) == 'views_plugin_style_views_row_view_mode' && isset($variables['view']->style_plugin->options['every_row_numbers'])) {
     $every_string = explode(',', $variables['view']->style_plugin->options['every_row_numbers']);
 
-    foreach ($every_string as $last_of_row) {
-      if (is_int($variables['view']->row_index / $last_of_row) && $variables['view']->row_index != 0) {
-        $variables['classes_array'][] = 'every-' . $last_of_row;
+    if (is_array($every_string) && count($every_string)) {
+      foreach ($every_string as $last_of_row) {
+        if ($variables['view']->row_index != 0 && $last_of_row && is_int(($variables['view']->row_index + 1) / $last_of_row)) {
+          $variables['classes_array'][] = 'every-' . $last_of_row;
+        }
       }
     }
   }
